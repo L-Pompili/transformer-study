@@ -2,6 +2,10 @@
 
 A "from-scratch" implementation of a GPT-style transformer, focusing on modern architectural components like **RoPE** (Rotary Positional Embeddings), **SwiGLU** (Swish-Gated Linear Units), and **RMSNorm**.
 
+## The model
+
+We implement a simple character-level tokenization transformer. For the sake of concreteness, we train the model on a dataset of a popular trading card game (Yu-gi-oh! TCG). The transformer is trained to generate card descriptions ("effects") from a primer string. 
+
 ## Project Structure
 - `config.py`: Hyperparameters and environment variables.
 - `model.py`: PyTorch implementation of the Transformer layers.
@@ -15,6 +19,7 @@ This repository contains a low-level implementation of a transformer using moder
 - **RoPE**: Implements rotation in the complex plane to encode relative position.
 - **SwiGLU**: Implements gated linear units to improve gradient flow approximation. It is used here without biases, unlike what was used in the original paper.
 - **RMSNorm**: A LayerNorm without biases.
+We make use of [torch.nn.functional.scaled_dot_product_attention](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html) to allow the use of FlashAttention when available.
 
 Links to the relevant papers:
 [RMSNorm](https://arxiv.org/abs/1910.07467)
